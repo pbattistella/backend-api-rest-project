@@ -4,3 +4,4 @@ Rest API created to manage projects, activities and customers.
 - Java Spring
 - Postgresql
 - JUnit
+- Flyway
