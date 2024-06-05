@@ -1,5 +1,6 @@
 package br.com.pbattistella.project.controller;
 
+import br.com.pbattistella.project.dto.ActivityDTO;
 import br.com.pbattistella.project.model.Activity;
 import br.com.pbattistella.project.model.Project;
 import br.com.pbattistella.project.service.ActivityService;
@@ -33,14 +34,14 @@ public class ActivityController {
 
     @PostMapping("/")
     @Operation(summary = "Create one activity", description = "Create one activity", tags = {"Activity"})
-    public Activity create(@RequestBody Activity activity) throws Exception {
-        return service.create(activity);
+    public Activity create(@RequestBody ActivityDTO activityDTO) throws Exception {
+        return service.create(activityDTO);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Updating one activity", description = "Updating one activity", tags = {"Activity"})
-    public Activity update(@PathVariable(value = "id") Long id, @RequestBody Activity activity) throws Exception {
-        return service.update(id, activity);
+    public Activity update(@PathVariable(value = "id") Long id, @RequestBody ActivityDTO activityDTO) throws Exception {
+        return service.update(id, activityDTO);
     }
 
     @DeleteMapping("/{id}")

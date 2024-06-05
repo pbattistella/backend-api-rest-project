@@ -1,9 +1,11 @@
 package br.com.pbattistella.project.service;
 
+import br.com.pbattistella.project.dto.ActivityDTO;
 import br.com.pbattistella.project.exception.ResourceNotFoundException;
 import br.com.pbattistella.project.model.Activity;
 import br.com.pbattistella.project.model.Project;
 import br.com.pbattistella.project.repository.ActivityRepository;
+import br.com.pbattistella.project.repository.CustomerRepository;
 import br.com.pbattistella.project.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
     ProjectRepository projectRepository;
+
+    @Autowired
+    CustomerRepository customerRepository;
 
     @Override
     public List<Activity> findByProject(Long projectId) {
@@ -40,23 +45,46 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Activity create(Activity activity) {
+    public Activity create(ActivityDTO activityDTO) {
         logger.info("Creating one activity!");
-        return repository.save(activity);
+
+        var project = projectRepository.findById(activityDTO.getProject())
+                .orElseThrow(() -> new ResourceNotFoundException("No record found for this ID!"));
+
+        var customer = customerRepository.findById(activityDTO.getCustomer())
+                .orElseThrow(() -> new ResourceNotFoundException("No record found for this ID!"));
+
+        var entity = new Activity();
+        entity.setProject(project);
+        entity.setCustomer(customer);
+        entity.setName(activityDTO.getName());
+        entity.setDescription(activityDTO.getDescription());
+        entity.setStartDate(activityDTO.getStartDate());
+        entity.setEndDate(activityDTO.getEndDate());
+
+        return repository.save(entity);
     }
 
     @Override
-    public Activity update(Long id, Activity activity) {
+    public Activity update(Long id, ActivityDTO activityDTO) {
         logger.info("Updating one activity!");
+
+        var project = projectRepository.findById(activityDTO.getProject())
+                .orElseThrow(() -> new ResourceNotFoundException("No record found for this ID!"));
+
+        var customer = customerRepository.findById(activityDTO.getCustomer())
+                .orElseThrow(() -> new ResourceNotFoundException("No record found for this ID!"));
 
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this ID!"));
-        entity.setName(activity.getName());
-        entity.setDescription(activity.getDescription());
-        entity.setStartDate(activity.getStartDate());
-        entity.setEndDate(activity.getEndDate());
-        entity.setCustomer(activity.getCustomer());
-        entity.setProject(activity.getProject());
+
+        entity.setId(activityDTO.getId());
+        entity.setProject(project);
+        entity.setCustomer(customer);
+        entity.setName(activityDTO.getName());
+        entity.setDescription(activityDTO.getDescription());
+        entity.setStartDate(activityDTO.getStartDate());
+        entity.setEndDate(activityDTO.getEndDate());
 
         return repository.save(entity);
     }

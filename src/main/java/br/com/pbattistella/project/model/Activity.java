@@ -107,4 +107,15 @@ public class Activity implements Serializable {
     public int hashCode() {
         return Objects.hash(id, name, description, startDate, endDate, customer, project);
     }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }

@@ -3,6 +3,7 @@ package br.com.pbattistella.project.service;
 import br.com.pbattistella.project.exception.ResourceNotFoundException;
 import br.com.pbattistella.project.model.Project;
 import br.com.pbattistella.project.repository.ProjectRepository;
+import br.com.pbattistella.project.util.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,12 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> findAll() {
         logger.info("Finding all projects!");
         return repository.findAll();
+    }
+
+    @Override
+    public List<Project> findByStatus(StatusEnum status) {
+        logger.info("Finding all projects with status defined!");
+        return repository.findByStatus(status);
     }
 
     @Override

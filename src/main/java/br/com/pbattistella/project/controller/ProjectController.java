@@ -2,6 +2,7 @@ package br.com.pbattistella.project.controller;
 
 import br.com.pbattistella.project.model.Project;
 import br.com.pbattistella.project.service.ProjectService;
+import br.com.pbattistella.project.util.StatusEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class ProjectController {
         return service.findById(id);
     }
 
+    @GetMapping("/status/{status}")
+    @Operation(summary = "Finds all projects witch status passed by parameter", description = "Finds all projects witch status passed by parameter", tags = {"Project"})
+    public List<Project> findByStatus(@PathVariable(value = "status") StatusEnum status) {
+        return service.findByStatus(status);
+    }
+
     @PostMapping("/")
     @Operation(summary = "Create one project", description = "Create one project", tags = {"Project"})
     public Project create(@RequestBody Project project) throws Exception {
@@ -48,5 +55,4 @@ public class ProjectController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }
