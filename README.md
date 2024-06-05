@@ -10,3 +10,6 @@ Rest API created to manage projects, activities and customers.
 - Flyway
 - Swagger
 - TestContainer (utiliza Docker para executar os testes)
+
+# Coverage #
+![Teste Unitário](https://github.com/pbattistella/backend-api-rest-project/blob/main/coverage.png)
