@@ -39,6 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer update(Long id, Customer customer) {
         logger.info("Updating one customer!");
+
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this ID!"));
         entity.setFullName(customer.getFullName());
@@ -46,6 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
         entity.setPhone(customer.getPhone());
         entity.setBirthDate(customer.getBirthDate());
         entity.setGender(customer.getGender());
+
         return repository.save(entity);
     }
 

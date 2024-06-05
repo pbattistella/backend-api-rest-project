@@ -1,6 +1,7 @@
 package br.com.pbattistella.project.model;
 
 import br.com.pbattistella.project.util.StatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -40,6 +41,7 @@ public class Project implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,
                mappedBy = "project",
                cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Activity> activities;
 
     public Long getId() {
