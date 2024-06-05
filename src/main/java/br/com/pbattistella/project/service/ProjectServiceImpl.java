@@ -5,6 +5,8 @@ import br.com.pbattistella.project.model.Project;
 import br.com.pbattistella.project.repository.ProjectRepository;
 import br.com.pbattistella.project.util.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +21,9 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRepository repository;
 
     @Override
-    public List<Project> findAll() {
+    public Page<Project> findAll(Pageable pageable) {
         logger.info("Finding all projects!");
-        return repository.findAll();
+        return repository.findAll(pageable);
     }
 
     @Override

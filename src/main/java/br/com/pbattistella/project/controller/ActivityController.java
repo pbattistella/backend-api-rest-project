@@ -2,15 +2,15 @@ package br.com.pbattistella.project.controller;
 
 import br.com.pbattistella.project.dto.ActivityDTO;
 import br.com.pbattistella.project.model.Activity;
-import br.com.pbattistella.project.model.Project;
 import br.com.pbattistella.project.service.ActivityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/activity")
@@ -22,8 +22,9 @@ public class ActivityController {
 
     @GetMapping("/project/{projectId}")
     @Operation(summary = "Find activities of project", description = "Find activities of project", tags = {"Activity"})
-    public List<Activity> findByProject(@PathVariable(value = "projectId") Long projectId) {
-        return service.findByProject(projectId);
+    public Page<Activity> findByProject(@PageableDefault(sort = {"startDate"}) Pageable pageable,
+                                        @PathVariable(value = "projectId") Long projectId) {
+        return service.findByProject(projectId, pageable);
     }
 
     @GetMapping("/{id}")

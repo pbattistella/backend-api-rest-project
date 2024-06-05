@@ -1,7 +1,6 @@
 package br.com.pbattistella.project.model;
 
 import br.com.pbattistella.project.util.StatusEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

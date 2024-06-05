@@ -5,10 +5,11 @@ import br.com.pbattistella.project.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -20,8 +21,8 @@ public class CustomerController {
 
     @GetMapping("/")
     @Operation(summary = "Finds all customers", description = "Finds all customers", tags = {"Customer"})
-    public List<Customer> findAll() {
-        return service.findAll();
+    public Page<Customer> findAll(@PageableDefault(sort = {"fullName"}) Pageable pageable) {
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")

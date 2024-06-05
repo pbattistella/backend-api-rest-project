@@ -4,9 +4,10 @@ import br.com.pbattistella.project.exception.ResourceNotFoundException;
 import br.com.pbattistella.project.model.Customer;
 import br.com.pbattistella.project.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -18,9 +19,9 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository repository;
 
     @Override
-    public List<Customer> findAll() {
+    public Page<Customer> findAll(Pageable pageable) {
         logger.info("Finding all customers!");
-        return repository.findAll();
+        return repository.findAll(pageable);
     }
 
     @Override

@@ -3,14 +3,14 @@ package br.com.pbattistella.project.service;
 import br.com.pbattistella.project.dto.ActivityDTO;
 import br.com.pbattistella.project.exception.ResourceNotFoundException;
 import br.com.pbattistella.project.model.Activity;
-import br.com.pbattistella.project.model.Project;
 import br.com.pbattistella.project.repository.ActivityRepository;
 import br.com.pbattistella.project.repository.CustomerRepository;
 import br.com.pbattistella.project.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -28,13 +28,13 @@ public class ActivityServiceImpl implements ActivityService {
     CustomerRepository customerRepository;
 
     @Override
-    public List<Activity> findByProject(Long projectId) {
+    public Page<Activity> findByProject(Long projectId, Pageable pageable) {
         logger.info("Finding all activity of project!");
 
         var project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this ID!"));
 
-        return repository.findByProject(project);
+        return repository.findByProject(project, pageable);
     }
 
     @Override
