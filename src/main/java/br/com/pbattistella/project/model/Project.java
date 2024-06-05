@@ -38,10 +38,9 @@ public class Project implements Serializable {
                 foreignKey = @ForeignKey(name = "manager_fk_in_project"))
     private Customer manager;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
                mappedBy = "project",
                cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Activity> activities;
 
     public Long getId() {
