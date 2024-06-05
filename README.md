@@ -8,3 +8,4 @@ Rest API created to manage projects, activities and customers.
 - Postgresql
 - JUnit
 - Flyway
+- Swagger
