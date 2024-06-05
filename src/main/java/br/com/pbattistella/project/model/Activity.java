@@ -1,5 +1,6 @@
 package br.com.pbattistella.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -31,10 +32,11 @@ public class Activity implements Serializable {
             foreignKey = @ForeignKey(name = "customer_fk_in_activity"))
     private Customer customer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "project",
                 referencedColumnName = "id",
                 foreignKey = @ForeignKey(name = "project_fk_in_activity"))
+    @JsonIgnore
     private Project project;
 
     public Long getId() {
