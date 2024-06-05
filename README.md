@@ -9,3 +9,4 @@ Rest API created to manage projects, activities and customers.
 - JUnit
 - Flyway
 - Swagger
+- TestContainer (utiliza Docker para executar os testes)
